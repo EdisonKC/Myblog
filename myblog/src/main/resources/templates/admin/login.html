@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <link th:href="@{../css/bootstrap.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div>
+        <div class="panel panel-color panel-danger panel-pages panel-shadow">
+            <div class="panel-heading">
+                <h3 class="text-center m-t-10"> Login My Blog</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal m-t-20" method="post" id="loginForm" onsubmit="">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="input-lg input-border" name="username" type="text" required=""
+                                    placeholder="账号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="input-lg input-border" name="password" type="password" required=""
+                                   placeholder="账号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="checkbox checkbox-danger">
+                                <input id="checkbox-signup" name="remember_me" type="checkbox"/>
+                                <label for="checkbox-signup">记住我</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center m-t-40">
+                        <div class="col-xs-12">
+                            <button class="btn btn-danger btn-lg btn-rounded btn-block w-lg waves-effect waves-light" type="submit">
+                                登&nbsp;录
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script th:src="@{../js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{../js/bootstrap.js}"></script>
+<script th:src="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.js}"></script>
+<script th:src="@{/admin/js/base.js}"></script>
+<script type="text/javascript">
+    /*<![CDATA[*/
+    var tale = new $.tale();
+    function checkForm() {
+        tale.post({
+            url: '/admin/login',
+            data: $("#loginForm").serialize(),
+            success: function (result) {
+                if (result && result.code == 'success') {
+                    window.location.href = '/admin/index';
+                } else {
+                    tale.alertError(result.msg || '登录失败');
+                }
+            }
+        });
+        return false;
+    }
+    /*]]>*/
+</script>
+</html>
